@@ -144,20 +144,20 @@ class MyPanel extends JPanel implements Runnable, KeyListener, Printable{
 		
 		switch(keyCode) {
 		case KeyEvent.VK_LEFT:
-			vx = -10;
+			vx = -1;
 			vy = 0;
 			break;
 		case KeyEvent.VK_RIGHT:
-			vx = 10;
+			vx = 1;
 			vy = 0;
 			break;
 		case KeyEvent.VK_UP:
 			vx = 0;
-			vy = -10;
+			vy = -1;
 			break;
 		case KeyEvent.VK_DOWN:
 			vx = 0;
-			vy = 10;
+			vy = 1;
 			break;
 		}
 	}
@@ -198,11 +198,11 @@ class MyPanel extends JPanel implements Runnable, KeyListener, Printable{
 			//BORDER COLLISION
 			//***********************
 			
-			if(tx - r < 0) 	tx = r;
-			else if(tx+r>400) tx = 400 -r;
+			if(tx - r < 15) 	tx = r+15;
+			else if(tx+r>385) tx = 385 -r;
 			
-			if(ty - r < 0) ty = r;
-			else if(ty + r >400) ty = 400-r;
+			if(ty - r < 10) ty = r+10;
+			else if(ty + r >390) ty = 390-r;
 			
 			repaint();
 			try {
@@ -225,7 +225,7 @@ class MyPanel extends JPanel implements Runnable, KeyListener, Printable{
 			
 		exit1 = new Rectangle2D.Double(-15,-15,30,30);
 			
-		player = new Heart(-r,-r,2*r,2*r);
+		player = new CustShape(-r,-r,2*r,2*r);
 		
 		//***********************
 		//SETTING UP PLAYER
@@ -292,25 +292,34 @@ class MyPanel extends JPanel implements Runnable, KeyListener, Printable{
 		
 		}
 		
-		public class Heart implements Shape {
+		public class CustShape implements Shape {
 			GeneralPath path;
-			public Heart(float x, float y, float w, float h) {
+			public CustShape(float x, float y, float w, float h) {
 			    path = new GeneralPath();
-			    float x0 = x + 0.5f*w;
-			    float y0 = y + 0.3f*h;
-			    float x1 = x + 0.1f*w;
-			    float y1 = y + 0f * h;
-			    float x2 = x + 0f * w;
-			    float y2 = y + 0.6f * h;
-			    float x3 = x + 0.5f * w;
-			    float y3 = y + 0.9f * h;
-			    float x4 = x + 1f * w;
-			    float y4 = y + 0.6f * h;
-			    float x5 = x + 0.9f * w;
-			    float y5 = y + 0f * h;
+			    float x0 = x + 0.2f*w;
+			    float y0 = y + 1f*h;
+			    float x1 = x + 0.2f*w;
+			    float y1 = y + -0.6f * h;
+			    float x2 = x + 1.1f * w;
+			    float y2 = y + 2.4f * h;
+			    float x3 = x + 1f * w;
+			    float y3 = y + 0f * h;
+			    float x4 = x +0.8f * w;
+			    float y4 = y + 0f * h;
+			    float x5 = x + 0.8f * w;
+			    float y5 = y + 1.8f * h;
+			    float x6 = x + -0.1f * w;
+			    float y6 = y + -1.5f * h;
+			    float x7 = x + 0f * w;
+			    float y7 = y + 1f * h;
+			    float x8 = x + 0.2f * w;
+			    float y8 = y + 1f * h;
 			    path.moveTo(x0, y0);
 			    path.curveTo(x1, y1, x2, y2, x3, y3);
-			    path.curveTo(x4, y4, x5, y5, x0, y0);
+			    path.lineTo(x4, y4);
+			    path.curveTo(x5, y5, x6, y6, x7,y7);
+			    //path.lineTo(x8, y8);
+			    path.clone();
 			  }
 			public boolean contains(Rectangle2D rect) {
 			    return path.contains(rect);
